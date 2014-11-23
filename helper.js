@@ -1,6 +1,8 @@
 ( function( window ) {
 'use strict';
 
+// Class helpers ----------------------------------------------------------
+
 // Gets a list of the classes of an element and make a list with a space at
 // the end of each class name to ease finding.
 // @param   elem    HTML element
@@ -52,25 +54,58 @@ function removeClass(elem, cls) {
 // Toggles a class on an element
 // @param   elem     HTML element
 // @param   cls      class name
-function toggleClass( elem, cls ) {
-  var fn = hasClass( elem, cls ) ? removeClass : addClass;
+function toggleClass(elem, cls) {
+  var fn = hasClass(elem, cls) ? removeClass : addClass;
   fn(elem, cls);
 }
 
 
-var utils = {
-  // full names
-  hasClass: hasClass,
-  addClass: addClass,
-  removeClass: removeClass,
-  toggleClass: toggleClass,
-  // short names
-  has: hasClass,
-  add: addClass,
-  remove: removeClass,
-  toggle: toggleClass
+// CSS helpers --------------------------------------------------------
+
+// Detects when a css animation has ended
+// Usage:
+// var transitionEvent = detectAnimationEnd(el);
+// transitionEvent && el.addEventListener(transitionEvent, function() {
+//      // do something
+// });
+// @param el    HTML element
+function detectAnimationEnd(el){
+    var t;
+    var transitions = {
+      'transition':'transitionend',
+      'OTransition':'oTransitionEnd',
+      'MozTransition':'transitionend',
+      'WebkitTransition':'webkitTransitionEnd'
+    };
+
+    for(t in transitions){
+        if( el.style[t] !== undefined ){
+            return transitions[t];
+        }
+    }
+}
+
+
+
+
+var helpers = {
+    class: {
+        // full names
+        hasClass: hasClass,
+        addClass: addClass,
+        removeClass: removeClass,
+        toggleClass: toggleClass,
+        // short names
+        has: hasClass,
+        add: addClass,
+        remove: removeClass,
+        toggle: toggleClass
+    },
+    css: {
+        detectAnimationEnd: detectAnimationEnd
+    }
 };
 
-window.utils = utils;
+window.helpers = helpers;
 
 })( window );
