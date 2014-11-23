@@ -86,8 +86,6 @@ function detectAnimationEnd(el){
 }
 
 
-
-
 var helpers = {
     class: {
         // full names
