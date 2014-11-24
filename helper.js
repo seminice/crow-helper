@@ -62,6 +62,21 @@ function toggleClass(elem, cls) {
 
 // CSS helpers --------------------------------------------------------
 
+// sets the style of an element
+// Usage:
+// document.getElementById('element').setStyle('color', indigo);
+// @param prop CSS property
+// @param val  value
+function setStyle(prop, val) {
+    prop = prop.replace(/\-[a-z]/g,
+    function(m) {
+        return m[1].toUpperCase();
+    });
+    return this.each(function(el) {
+        el.style[prop] = val;
+    });
+}
+
 // Detects when a css animation has ended
 // Usage:
 // var transitionEvent = detectAnimationEnd(el);
@@ -100,7 +115,11 @@ var helpers = {
         toggle: toggleClass
     },
     css: {
-        detectAnimationEnd: detectAnimationEnd
+        // full names
+        setStyle: setStyle,
+        detectAnimationEnd: detectAnimationEnd,
+        // short names
+        style: setStyle,
     }
 };
 
